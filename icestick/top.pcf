@@ -1,0 +1,16 @@
+set_io RESETQ 3
+set_io CLK 21
+set_io LED_UP 99
+set_io LED_RIGHT 98
+set_io LED_DOWN 97
+set_io LED_LEFT 96
+set_io LED_MIDDLE 95
+set_io TXD 8
+set_io RXD 9
+
+set_io ACTIVITY 87
+set_io USB_DP 79
+set_io USB_DM 80
+set_io USB_OE 91
+set_io USB_OUT_DP 78
+set_io USB_OUT_DM 81
