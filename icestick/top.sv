@@ -45,8 +45,10 @@ module top (
     );
 
     // Orchestrate string "printing" via UART.
+    // There is a "gap" to be minded due to the BRAM latency.
     logic string_busy = '0;
     logic string_startup_gap = '0;
+    logic string_add_newline = '0;
     always_ff @(posedge CLK) begin
         uart_wr <= '0;
         string_startup_gap <= '0;
@@ -54,6 +56,7 @@ module top (
             if (uart_valid) begin
                 string_busy <= '1;
                 string_startup_gap <= '1;
+                string_add_newline <= '1;
                 if (rx_data < 65) begin
                     string_addr <= pkg_strings::S_hello_world;
                 end else begin
@@ -67,8 +70,14 @@ module top (
                     string_addr <= string_addr + 1;
                 end
             end else begin // if null char
-                if (~string_startup_gap) 
-                    string_busy <= '0;
+                if (~string_startup_gap) begin
+                    if (string_add_newline) begin
+                        string_addr <= pkg_strings::S_CRLF;
+                        string_add_newline <= '0;
+                        string_startup_gap <= '1;
+                    end else
+                        string_busy <= '0;
+                end
             end
         end
     end

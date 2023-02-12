@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 
 # generate verilog to store strings, null-terminated
 # plus package for indices
@@ -5,8 +6,12 @@
 # ice40 4k BRAM can be arranged as 512x8b
 
 directory = {}
+directory['CRLF'] = '\r\n'
 directory['hello_world'] = 'Hello world!'
 directory['startup_message'] = '~~~Welcome to Slowworm USB~~~'
+directory['waiting'] = 'Waiting for plug event...'
+directory['detect_full'] = 'Full-speed device detected!'
+directory['detect_low'] = 'Low-speed device detected!'
 
 index = 0
 indexing = {}
